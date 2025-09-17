@@ -36,7 +36,7 @@ function App() {
 
   const dayOfWeek = daysOfWeek[new Date().getDay()];
 
-  const API_KEY = "a1b5460f0eecbcb039dd74082cb0855e";
+  const API_KEY = "YOUR_API";
 
   const fetchWeatherData = async (cityName) => {
     try {

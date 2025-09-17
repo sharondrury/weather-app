@@ -75,16 +75,16 @@ function App() {
     }
   };
 
-
   const handleUnitChange = (e) => {
     console.log("Unit changed to:", e.value);
     setSelectedUnit(e.value);
   };
 
   useEffect(() => {
+    if (city) {
       fetchWeatherData(city);
-  }, []);
-
+    }
+  }, [selectedUnit]);
 
   function handleSearch(e) {
     e.preventDefault();
@@ -133,11 +133,11 @@ function App() {
 
       <header className="flex flex-col justify-center items-center">
         <section>
-          <h1 className="font-bold text-5xl text-center">
+          <h1 className="font-bold text-5xl text-center my-5">
             How's the sky looking today?
           </h1>
         </section>
-        <section className="p-6">
+        <section className="p-6 mb-5">
           <form onSubmit={handleSearch} className="search">
             {/* search */}
             <span className="relative">
@@ -180,7 +180,7 @@ function App() {
                   />
                   <p className="font-bold text-7xl">
                     {Math.round(weatherData.main.temp)}
-                    {getTemperatureUnit()}
+                    <span className="text-[50px]">{getTemperatureUnit()}</span>
                   </p>
                 </div>
               </div>
@@ -260,10 +260,8 @@ function App() {
                     </p>
                   </div>
                   <div className="bg-gray-400/25 rounded-lg px-3 py-3 flex flex-col space-between gap-3">
-                    <p className="font-light">Wind gust</p>
-                    <p className="text-[20px]">
-                      {(weatherData.weather.main)} mph
-                    </p>
+                    <p className="font-light">Wind degrees</p>
+                    <p className="text-[20px]">{weatherData.wind.deg} deg</p>
                   </div>
                 </div>
               </div>
@@ -290,10 +288,11 @@ function App() {
                           alt={day.weather[0].description}
                         />
                         <div className="flex justify-between gap-2">
-                          <p>
+                          {/* Can't get min to work */}
+                          {/* <p>
                             {Math.round(day.main.temp_min)}
                             {getTemperatureUnit()}
-                          </p>
+                          </p> */}
                           <p>
                             {Math.round(day.main.temp_max)}
                             {getTemperatureUnit()}
